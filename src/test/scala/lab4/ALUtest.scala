@@ -15,10 +15,14 @@ class TestALU extends FreeSpec with ChiselScalatestTester {
             val array_op = Array ( ALU_ADD , ALU_SUB , ALU_AND , ALU_OR , ALU_XOR , ALU_SLT ,
             ALU_SLL , ALU_SLTU , ALU_SRL , ALU_SRA , ALU_COPY_A , ALU_COPY_B , ALU_XXX )
             for ( i <- 0 until 100) {
+                println(s"*********$i**********")
                 val src_a = Random . nextLong () & 0xFFFFFFFFL
                 val src_b = Random . nextLong () & 0xFFFFFFFFL
-                val opr = Random . nextInt (12)
+                val opr = 0//Random . nextInt (12)
                 val aluop = array_op ( opr )
+                println(s"*********$aluop**********")
+                println(s"*********$src_a**********")
+                println(s"*********$src_b**********")
                 val result = aluop match {
                     case ALU_ADD => src_a + src_b
                     case ALU_SUB => src_a - src_b
@@ -34,18 +38,26 @@ class TestALU extends FreeSpec with ChiselScalatestTester {
                     case ALU_COPY_B => src_b
                     case _ => 0
                 }
+                println(s"*********$result**********")
                 val result1 : BigInt = if ( result < 0)
-                    ( BigInt (0xFFFFFFFFL ) + result ) & 0xFFFFFFFFL
+                    ( BigInt (0xFFFFFFFFL ) + result +1 ) & 0xFFFFFFFFL
                 
                 else (result & 0xFFFFFFFFL)
+                // println(s"*********$i**********")
+                // println(s"*********$src_a**********")
+                // println(s"*********$src_b**********")
+                // println(s"*********$aluop**********")
+                // println(s"*********$result**********")
+                println(s"*********$result1**********")
+
                     c . io . in_A . poke ( src_a . U )
                     c . io . in_B . poke ( src_b . U )
                     c . io . alu_Op . poke ( aluop )
                     c . clock . step (1)
-                    c . io . out . expect ( result1 . asUInt )
+                    c . io . out . expect ( result1.U )
                 
             }
-            c . clock . step (2)
+            c . clock . step (200)
         }
     }
 }

@@ -40,7 +40,7 @@ class ALU extends Module{
         is(4.U){
             io.out:=io.a^io.b
         }
-        //slr
+        //slr/sra
         is(5.U){
             io.out:=io.a >> io.b(4,0)
         }
@@ -58,9 +58,9 @@ class ALU extends Module{
             io.out:=io.a - io.b
         }
         //SRA
-        // is(13.U){
-        //     io.out:=io.a << io.b
-        // }
+        is(13.U){
+            io.out:=io.a >> io.b(4,0)
+        }
         //BEQ
         is(16.U){
             when(io.a === io.b){
