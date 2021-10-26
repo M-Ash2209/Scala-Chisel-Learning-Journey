@@ -68,8 +68,6 @@ class BranchCtrltest extends FreeSpec with ChiselScalatestTester {
                                 else
                                             0
 
-                    // case ALU_COPY_A => src_a
-                    // case ALU_COPY_B => src_b
                     case _ => 0
 
                 }
