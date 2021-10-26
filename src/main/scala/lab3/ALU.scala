@@ -2,6 +2,27 @@ package lab3
 import chisel3._
 import chisel3.util._
 
+object ALUOP {
+    val ADD = 0.U(5.W)
+    val SLL = 1.U(5.W)
+    val SLT = 2.U(5.W)
+    val SLTU= 3.U(5.W)
+    val XOR = 4.U(5.W)
+    val SRL = 5.U(5.W)
+    val OR  = 6.U(5.W)
+    val AND = 7.U(5.W)
+    val SUB = 8.U(5.W)
+    val SRA = 13.U(5.W)
+    val BEQ = 16.U(5.W)
+    val BNE = 17.U(5.W)
+    val BLT = 20.U(5.W)
+    val BGE = 21.U(5.W)
+    val BLTU= 22.U(5.W)
+    // val ALU_COPY_A = 10.U(4.W)
+    // val ALU_COPY_B = 11.U(4.W)
+    // val ALU_XXX = 12.U(4.W) 
+}
+import ALUOP._
 class ALU extends Module{
     val io = IO(new Bundle{
         val a = Input(SInt(32.W))
@@ -12,15 +33,15 @@ class ALU extends Module{
     })
     io.out := 0.S
     switch(io.select){
-        is (0.U){
+        is (ADD){
             io.out := io.a + io.b
         }
         //sll
-        is (1.U){
+        is (SLL){
             io.out := io.a << io.b(4,0)
         }
         //SLT
-        is (2.U){
+        is (SLT){
             when(io.a < io.b){
                 io.out:= 1.S
             }.otherwise{
@@ -29,7 +50,7 @@ class ALU extends Module{
         
         }
         //SLTU
-        is (3.U){
+        is (SLTU){
             when(io.a.asUInt < io.b.asUInt){
                 io.out:= 1.S
             }.otherwise{
@@ -37,32 +58,32 @@ class ALU extends Module{
             }
         }
         //xor
-        is(4.U){
+        is(XOR){
             io.out:=io.a^io.b
         }
-        //slr/sra
-        is(5.U){
+        //srl/sra
+        is(SRL){
             io.out:=io.a >> io.b(4,0)
         }
         //or
-        is(6.U){
+        is(OR){
             io.out:=io.a | io.b
             
         }
         //ANd
-        is(7.U){
+        is(AND){
             io.out:=io.a & io.b
         }
         //sub
-         is(8.U){
+         is(SUB){
             io.out:=io.a - io.b
         }
         //SRA
-        is(13.U){
+        is(SRA){
             io.out:=io.a >> io.b(4,0)
         }
         //BEQ
-        is(16.U){
+        is(BEQ){
             when(io.a === io.b){
                 io.out:= 1.S
             }.otherwise{
@@ -70,7 +91,7 @@ class ALU extends Module{
             }
         }
         //bne
-        is(17.U){
+        is(BNE){
             when(io.a =/= io.b){
                 io.out:= 1.S
             }.otherwise{
@@ -78,7 +99,7 @@ class ALU extends Module{
             }
         }
         //blt
-        is(20.U){
+        is(BLT){
             when(io.a < io.b){
                 io.out:= 1.S
             }.otherwise{
@@ -86,7 +107,7 @@ class ALU extends Module{
             }
         }
         //bge
-        is(21.U){
+        is(BGE){
             when(io.a >= io.b){
                 io.out:= 1.S
             }.otherwise{
@@ -94,7 +115,7 @@ class ALU extends Module{
             }
         }
         //bltu
-        is(22.U){
+        is(BLTU){
             when(io.a.asUInt < io.b.asUInt){
                 io.out:= 1.S
             }.otherwise{
