@@ -31,16 +31,17 @@ class ImmGentest extends FreeSpec with ChiselScalatestTester {
     "Imm.Gen " in {
         test ( new ImmGen ) { c =>
         // IMM operations
-            val array_ins = Array ( 53478035,5251619)
+            val array_ins = Array ( 53478035,5251619,239)
             for ( i <- 0 until 4) {
                 // println(s"*********$i**********")
-                val opr_ins =Random . nextInt(2)
+                val opr_ins =Random . nextInt(3)
                 val src_ins = array_ins(opr_ins)
 
-                val src_pc = Random . nextLong () & 0xFFFFFFFFL
+                val src_pc = 0 
                 val result = src_ins match {
                     case 53478035 => 51
                     case 5251619 => 4
+                    case 239 => 0
                 }
             
                 println(s"*********$i**********")

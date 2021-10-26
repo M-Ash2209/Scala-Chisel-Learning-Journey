@@ -34,7 +34,7 @@ class TestALU extends FreeSpec with ChiselScalatestTester {
                                 else
                                             0
                     case XOR => src_a.toInt ^ src_b.toInt 
-                    case SRL => src_a.toInt >> ( src_b.toInt & 0x1F )
+                    case SRL => src_a.toInt >> ( src_b & 0x1F )
                     case OR => src_a.toInt | src_b.toInt 
                     case AND => src_a.toInt & src_b.toInt
                     case SUB => src_a.toInt - src_b.toInt
@@ -51,7 +51,7 @@ class TestALU extends FreeSpec with ChiselScalatestTester {
                                             1
                                 else
                                             0
-                    case BGE => if ( src_a . toInt > src_b . toInt )
+                    case BGE => if ( src_a . toInt > src_b . toInt || src_a . toInt == src_b . toInt )
                                             1
                                 else
                                             0

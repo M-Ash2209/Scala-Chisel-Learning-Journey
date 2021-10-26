@@ -59,7 +59,7 @@ class BranchCtrltest extends FreeSpec with ChiselScalatestTester {
                                             1
                                 else
                                             0
-                    case BGE => if ( src_a . toInt > src_b . toInt )
+                    case BGE => if ( src_a . toInt > src_b . toInt || src_a . toInt == src_b . toInt)
                                             1
                                 else
                                             0

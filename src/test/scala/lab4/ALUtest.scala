@@ -29,9 +29,9 @@ class TestALU extends FreeSpec with ChiselScalatestTester {
                     case ALU_AND => src_a & src_b
                     case ALU_OR => src_a | src_b
                     case ALU_XOR => src_a ^ src_b
-                    case ALU_SLT => ( src_a . toInt < src_b . toInt ). asInstanceOf [ Int ]
+                    // case ALU_SLT => ( src_a . toInt < src_b . toInt ). asInstanceOf [ Int ]
                     case ALU_SLL => src_a << ( src_b & 0x1F )
-                    case ALU_SLTU => ( src_a < src_b ) . asInstanceOf [ Int ]
+                    // case ALU_SLTU => ( src_a < src_b ) . asInstanceOf [ Int ]
                     case ALU_SRL => src_a >> ( src_b & 0x1F )
                     case ALU_SRA => src_a . toInt >> ( src_b & 0x1F )
                     case ALU_COPY_A => src_a
