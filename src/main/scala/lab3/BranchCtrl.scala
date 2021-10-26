@@ -9,6 +9,15 @@ class LM_IO_Interface_BranchControl extends Bundle {
     val out= Output ( SInt (32. W ) )
     val br_taken = Output ( Bool () )
 }
+
+object BRCOP {
+    val BEQ = 16.U(5.W)
+    val BNE = 17.U(5.W)
+    val BLT = 20.U(5.W)
+    val BGE = 21.U(5.W)
+    val BLTU= 22.U(5.W)
+ 
+}
 class BranchCtrl extends Module {
     val io = IO ( new LM_IO_Interface_BranchControl )
     // Start Coding here
