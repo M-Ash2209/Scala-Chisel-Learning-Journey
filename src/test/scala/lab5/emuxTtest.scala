@@ -5,7 +5,7 @@ import chisel3._
 import chisel3.util._
 
 class emuxTtest extends FreeSpec with ChiselScalatestTester{
-    "EMUX PARAM"  in {
+    "EMUXT PARAM"  in {
      test (new emuxT){ c =>
         c.io.in1.poke(25.S)
         c.io.in2.poke(35.S)

@@ -5,7 +5,7 @@ import chisel3._
 import chisel3.util._
 
 class AdderCTtest extends FreeSpec with ChiselScalatestTester{
-    "EMUX PARAM"  in {
+    "Clone Type"  in {
      test (new Top(16,16,32)){ c =>
         c.io.in.poke(2.U)
         
