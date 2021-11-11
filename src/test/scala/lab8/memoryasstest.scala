@@ -10,16 +10,17 @@ class memoryasstest extends FreeSpec with ChiselScalatestTester{
        
         c.io.requestor(0).valid.poke(1.B)
         c.io.requestor(1).bits.poke(4.U)
+        c.io.requestor(3).bits.poke(6.U)
+        
+        c.io.requestor(1).bits.poke(7.U)
         c.io.requestor(2).bits.poke(5.U)
         c.io.requestor(3).bits.poke(6.U)
-        // c.io.memory_out.ready.poke(1.B)
+        
         c.io.requestor(1).valid.poke(1.B)
         c.io.requestor(2).valid.poke(1.B)
         c.io.requestor(3).valid.poke(1.B)
         c.io.Readaddr.poke(8.U)
         c.io.Writeaddr.poke(8.U)
         c.io.enable.poke(1.B)
-        // c.io.out.valid.poke(1.B)
-        // c.io.in.poke(0.B)
-        //c.io.up_down.poke(1.B)
-        c.clock.step(40)}}}
+        
+        c.clock.step(50)}}}

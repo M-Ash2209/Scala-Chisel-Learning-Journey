@@ -4,9 +4,9 @@ import chisel3.util._
 
 class memory_assignment extends Module {
     val io = IO (new Bundle {
-    val memory_out = Vec (4 , Output ( UInt (32. W ) ) )
-    val requestor = Flipped (Vec(4,Decoupled ( UInt (32. W ) ) ) )
-    val enable = (Bool())
+    val memory_out = Decoupled(UInt(32.W ))
+    val requestor = Vec(4,Flipped(Decoupled ( UInt (32. W ) ) ) )
+    val enable = Input(Bool())
     val Readaddr = Input ( UInt (5. W ) )
     val Writeaddr = Input ( UInt (5. W ) )
     // val out = Decoupled ( UInt (32. W ) ) 
@@ -21,19 +21,19 @@ class memory_assignment extends Module {
     queue2.nodeq()
     queue3.nodeq()
   
-
+    io.memory_out.valid:=1.B
     val arbi = Module (new Arbiter(UInt(),2))
-    arbi.io.in(0)<>queue0
-    arbi.io.in(1)<>queue1
-    arbi.io.in(2)<>queue2
-    arbi.io.in(3)<>queue3
-    io.memory_out <> arbi.io.out
-    // val output = arbi.io.out
-    // when(io.enable){
-    // Memory.write(io.Writeaddr,output.asUInt)
-    // }
-    // io.memory_out := Memory.read(io.Readaddr)
-
-
+    arbi.io.in(1)<>queue0
+    arbi.io.in(0)<>queue1
+    arbi.io.in(1)<>queue2
+    arbi.io.in(1)<>queue3
+    // io.memory_out<>arbi.io.out
+    // arbi.io.out.ready :=1.B
+    val output = arbi.io.out 
+    output.ready :=1.B
+    when(io.enable){
+    Memory.write(io.Writeaddr,output.asUInt)
+    }
+    io.memory_out.bits := Memory.read(io.Readaddr)
 
 }
